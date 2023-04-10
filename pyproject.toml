@@ -1,5 +1,5 @@
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling", "hatch-vcs"]
 build-backend = "hatchling.build"
 
 [project]
@@ -15,6 +15,7 @@ authors = [
 ]
 classifiers = [
   "Development Status :: 4 - Beta",
+  "License :: OSI Approved :: MIT License",
   "Programming Language :: Python",
   "Programming Language :: Python :: 3.7",
   "Programming Language :: Python :: 3.8",
@@ -25,62 +26,46 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
 dependencies = [
-  "click",
+  "click>=8.0.3",
 ]
 
 [project.urls]
-Documentation = "https://github.com/unknown/samplepythonproject#readme"
-Issues = "https://github.com/unknown/samplepythonproject/issues"
-Source = "https://github.com/unknown/samplepythonproject"
+Documentation = "https://github.com/patrick-5546/samplepythonproject#readme"
+Issues = "https://github.com/patrick-5546/samplepythonproject/issues"
+Source = "https://github.com/patrick-5546/samplepythonproject"
 
 [project.scripts]
 samplepythonproject = "samplepythonproject.cli:samplepythonproject"
 
 [tool.hatch.version]
-path = "src/samplepythonproject/__about__.py"
+source = "vcs"
 
-[tool.hatch.envs.default]
-dependencies = [
-  "coverage[toml]>=6.5",
-  "pytest",
-]
-[tool.hatch.envs.default.scripts]
-test = "pytest {args:tests}"
-test-cov = "coverage run -m pytest {args:tests}"
-cov-report = [
-  "- coverage combine",
-  "coverage report",
-]
-cov = [
-  "test-cov",
-  "cov-report",
+[tool.hatch.build.hooks.vcs]
+version-file = "src/samplepythonproject/_version.py"
+
+[tool.hatch.build.targets.sdist]
+exclude = [
+  "/.github",
+  "/.vscode",
+  "/docs",
 ]
 
-[[tool.hatch.envs.all.matrix]]
-python = ["3.7", "3.8", "3.9", "3.10", "3.11"]
+[tool.hatch.build.targets.wheel.hooks.mypyc]
+enable-by-default = false
+dependencies = ["hatch-mypyc"]
+require-runtime-dependencies = true
+mypy-args = [
+  "--no-warn-unused-ignores",
+]
 
-[tool.hatch.envs.lint]
-detached = true
-dependencies = [
-  "black>=23.1.0",
-  "mypy>=1.0.0",
-  "ruff>=0.0.243",
-]
-[tool.hatch.envs.lint.scripts]
-typing = "mypy --install-types --non-interactive {args:src/samplepythonproject tests}"
-style = [
-  "ruff {args:.}",
-  "black --check --diff {args:.}",
-]
-fmt = [
-  "black {args:.}",
-  "ruff --fix {args:.}",
-  "style",
-]
-all = [
-  "style",
-  "typing",
-]
+[tool.mypy]
+disallow_untyped_defs = false
+follow_imports = "normal"
+ignore_missing_imports = true
+pretty = true
+show_column_numbers = true
+warn_no_return = false
+warn_unused_ignores = true
 
 [tool.black]
 target-version = ["py37"]
@@ -147,7 +132,7 @@ source_pkgs = ["samplepythonproject", "tests"]
 branch = true
 parallel = true
 omit = [
-  "src/samplepythonproject/__about__.py",
+  "src/samplepythonproject/__main__.py",
 ]
 
 [tool.coverage.paths]
