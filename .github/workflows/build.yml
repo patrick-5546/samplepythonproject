@@ -39,7 +39,7 @@ jobs:
         fetch-depth: 0
 
     - name: Build wheels
-      uses: pypa/cibuildwheel@v2.12.1
+      uses: pypa/cibuildwheel@v2.12.3
       env:
         CIBW_ARCHS_MACOS: x86_64
         HATCH_BUILD_HOOKS_ENABLE: 'true'
@@ -93,7 +93,7 @@ jobs:
         platforms: arm64
 
     - name: Build wheels
-      uses: pypa/cibuildwheel@v2.12.1
+      uses: pypa/cibuildwheel@v2.12.3
       env:
         CIBW_ARCHS_LINUX: aarch64
         HATCH_BUILD_HOOKS_ENABLE: 'true'
