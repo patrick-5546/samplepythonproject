@@ -6,12 +6,16 @@ import click
 from samplepythonproject._version import version
 from samplepythonproject.fib import fibonacci
 
-# NOTE: The group/command decorators must come last to avoid the following issue at runtime:
-# https://github.com/pallets/click/issues/1199
+
+# NOTE: The group/command decorators must come last to avoid the following issue at
+# runtime: https://github.com/pallets/click/issues/1199
 
 
 @click.version_option(version=version, prog_name="samplepythonproject")
-@click.group(context_settings={"help_option_names": ["-h", "--help"]}, invoke_without_command=True)
+@click.group(
+    context_settings={"help_option_names": ["-h", "--help"]},
+    invoke_without_command=True,
+)
 def samplepythonproject():
     pass
 
