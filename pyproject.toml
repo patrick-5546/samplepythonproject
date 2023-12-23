@@ -69,12 +69,12 @@ warn_unused_ignores = true
 
 [tool.black]
 target-version = ["py37"]
-line-length = 120
+line-length = 88
 skip-string-normalization = true
 
 [tool.ruff]
 target-version = "py37"
-line-length = 120
+line-length = 88
 select = [
   "A",
   "ARG",
