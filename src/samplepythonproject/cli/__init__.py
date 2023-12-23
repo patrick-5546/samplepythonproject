@@ -6,7 +6,6 @@ import click
 from samplepythonproject._version import version
 from samplepythonproject.fib import fibonacci
 
-
 # NOTE: The group/command decorators must come last to avoid the following issue at
 # runtime: https://github.com/pallets/click/issues/1199
 
